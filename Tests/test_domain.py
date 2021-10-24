@@ -1,8 +1,8 @@
-from Domain.obiect import creeaza_obiect, get_id, get_nume, get_descriere, get_pret_achizitie, get_locatie
+from Domain.object import create_obiect, get_id, get_nume, get_descriere, get_pret_achizitie, get_locatie
 
 
 def test_obiect():
-    obiect = creeaza_obiect("1", "Laptop", "Tehnologie", 1400.0, "E1C2")
+    obiect = create_obiect("1", "Laptop", "Tehnologie", 1400.0, "E1C2")
     assert get_id(obiect) == "1"
     assert get_nume(obiect) == "Laptop"
     assert get_descriere(obiect) == "Tehnologie"

@@ -1,4 +1,4 @@
-def creeaza_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str) -> dict:
+def create_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str) -> dict:
     """
     creeaza un dictionar ce retine un obiect
     :param id: id-ul obiectului - string
