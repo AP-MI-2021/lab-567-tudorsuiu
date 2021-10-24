@@ -60,3 +60,18 @@ def get_locatie(obiect):
     :return: locatia unui obiect
     """
     return obiect["locatie"]
+
+
+def to_string(obiect):
+    """
+    Transforma un dictionar intr-un string
+    :param obiect: un dictionar de tip obiect
+    :return: dictionarul obiect sub forma de string
+    """
+    return "id: {}, nume: {}, descriere: {}, pret achizitie: {}, locatie: {}".format(
+        get_id(obiect),
+        get_nume(obiect),
+        get_descriere(obiect),
+        get_pret_achizitie(obiect),
+        get_locatie(obiect)
+    )
