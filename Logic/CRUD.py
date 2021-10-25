@@ -30,16 +30,6 @@ def get_by_id(id: str, inventar: List[dict]) -> dict or None:
     return None
 
 
-def delete_obiect(id: str, inventar: List[dict]) -> List[dict]:
-    """
-    Sterge un obiect din inventar dupa id
-    :param id: string
-    :param inventar: lista de obiecte
-    :return: lista de obiecte din care se sterge obiectul cu id-ul dat
-    """
-    return [obiect for obiect in inventar if get_id(obiect) != id]
-
-
 def modify_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str, inventar: List[dict]) -> List[dict]:
     """
     Modifica un obiect din lista
@@ -59,3 +49,13 @@ def modify_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, loc
         else:
             inventar_modificat.append(obiect)
     return inventar_modificat
+
+
+def delete_obiect(id: str, inventar: List[dict]) -> List[dict]:
+    """
+    Sterge un obiect din inventar dupa id
+    :param id: string
+    :param inventar: lista de obiecte
+    :return: lista de obiecte din care se sterge obiectul cu id-ul dat
+    """
+    return [obiect for obiect in inventar if get_id(obiect) != id]

@@ -17,7 +17,7 @@ def create_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, loc
     }
 
 
-def get_id(obiect):
+def get_id(obiect: dict) -> str:
     """
     Determina id-ul unui obiect
     :param obiect: un dictionar de tip obiect
@@ -26,7 +26,7 @@ def get_id(obiect):
     return obiect["id"]
 
 
-def get_nume(obiect):
+def get_nume(obiect: dict) -> str:
     """
     Determina numele unui obiect
     :param obiect: un dictionar de tip obiect
@@ -35,7 +35,7 @@ def get_nume(obiect):
     return obiect["nume"]
 
 
-def get_descriere(obiect):
+def get_descriere(obiect: dict) -> str:
     """
     Determina descrierea unui obiect
     :param obiect: un dictionar de tip obiect
@@ -44,7 +44,7 @@ def get_descriere(obiect):
     return obiect["descriere"]
 
 
-def get_pret_achizitie(obiect):
+def get_pret_achizitie(obiect: dict) -> float:
     """
     Determina pretul de achizitie al unui obiect
     :param obiect: un dictionar de tip obiect
@@ -53,7 +53,7 @@ def get_pret_achizitie(obiect):
     return obiect["pret_achizitie"]
 
 
-def get_locatie(obiect):
+def get_locatie(obiect: dict) -> str:
     """
     Determina locatia unui obiect
     :param obiect: un dictionar de tip obiect
@@ -62,7 +62,7 @@ def get_locatie(obiect):
     return obiect["locatie"]
 
 
-def to_string(obiect):
+def to_string(obiect: dict) -> str:
     """
     Transforma un dictionar intr-un string
     :param obiect: un dictionar de tip obiect

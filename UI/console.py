@@ -2,12 +2,14 @@ from typing import List
 
 from Domain.object import to_string
 from Logic.CRUD import add_obiect, delete_obiect, modify_obiect
+from Logic.functionalities import move_all_obiecte_to_another_locatie
 
 
 def print_menu():
     print("1. Adaugare obiect")
     print("2. Stergere obiect")
     print("3. Modificare obiect")
+    print("4. Mutarea tuturor obiectelor dintr-o locatie in alta locatie data")
     print("A. Afisarea tuturor obiectelor")
     print("X. Iesire")
 
@@ -49,6 +51,9 @@ def run_menu(inventar: List[dict]):
             inventar = ui_delete_obiect(inventar)
         elif optiune == "3":
             inventar = ui_modify_obiect(inventar)
+        elif optiune == "4":
+            location = input("Dati locatia: ")
+            print(move_all_obiecte_to_another_locatie(inventar, location))
         elif optiune == "A":
             show_all(inventar)
         elif optiune == "X":
