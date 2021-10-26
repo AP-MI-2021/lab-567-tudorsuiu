@@ -2,7 +2,8 @@ from typing import List
 
 from Domain.object import to_string
 from Logic.CRUD import add_obiect, delete_obiect, modify_obiect
-from Logic.functionalities import move_all_obiecte_to_another_locatie
+from Logic.functionalities import move_all_obiecte_to_another_locatie, concatenation_to_all_obiecte_above_price, \
+    ascending_sorting_by_price
 
 
 def print_menu():
@@ -10,6 +11,10 @@ def print_menu():
     print("2. Stergere obiect")
     print("3. Modificare obiect")
     print("4. Mutarea tuturor obiectelor dintr-o locatie in alta locatie data")
+    print("5. Concatenarea unui string citit la toate descrierile obiectelor cu pretul mai mare decat o valoare citita")
+    print("6. Determinarea celui mai mare pret pentru fiecare locatie")
+    print("7. Ordonarea obiectelor crescator dupa pretul de achizitie")
+    print("8. ")
     print("A. Afisarea tuturor obiectelor")
     print("X. Iesire")
 
@@ -54,6 +59,12 @@ def run_menu(inventar: List[dict]):
         elif optiune == "4":
             location = input("Dati locatia: ")
             print(move_all_obiecte_to_another_locatie(inventar, location))
+        elif optiune == "5":
+            concat_description = input("Dati descrierea care se va adauga: ")
+            price = float(input("Dati pretul de comparare: "))
+            print(concatenation_to_all_obiecte_above_price(inventar, concat_description, price))
+        elif optiune == "7":
+            print(ascending_sorting_by_price(inventar))
         elif optiune == "A":
             show_all(inventar)
         elif optiune == "X":
