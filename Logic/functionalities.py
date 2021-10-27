@@ -13,7 +13,7 @@ def move_all_obiecte_to_another_locatie(inventar: List[dict], location: str) -> 
     """
     inventar_modified = inventar[:]
     for obiect in inventar:
-        if inventar_modified == []:
+        if not inventar_modified:
             inventar_modified = modify_obiect(get_id(obiect), get_nume(obiect), get_descriere(obiect),
                                               get_pret_achizitie(obiect), location, inventar_modified)
         else:
@@ -42,13 +42,23 @@ def concatenation_to_all_obiecte_above_price(inventar: List[dict], concat_descri
     return inventar_modified
 
 
-def determine_maximum_price_for_every_locatie(inventar: List[dict]):
+def determine_maximum_price_for_every_locatie(inventar: List[dict]) -> dict:
     """
     Determina cel mai mare pret de achizitie din fiecare locatie
     :param inventar: lista de obiecte
     :return: lista cu locatiile si pretul de achizitie maxim din fiecare locatie
     """
-    pass
+    result = {}
+    for obiect in inventar:
+        locatie = get_locatie(obiect)
+        pret = get_pret_achizitie(obiect)
+        if locatie in result:
+            if pret > result[locatie]:
+                result[locatie] = pret
+        else:
+            result[locatie] = pret
+    return result
+
 
 def ascending_sorting_by_price(inventar: List[dict]) -> List[dict]:
     """
@@ -61,10 +71,18 @@ def ascending_sorting_by_price(inventar: List[dict]) -> List[dict]:
     return inventar_ascending
 
 
-def sum_for_every_location(inventar: List[dict]):
+def sum_for_every_location(inventar: List[dict]) -> dict:
     """
     Determina suma preturilor pentru fiecare locatie
     :param inventar: lista de obiecte
     :return: suma preturilor pentru fiecare locatie
     """
-    pass
+    result = {}
+    for obiect in inventar:
+        locatie = get_locatie(obiect)
+        pret = get_pret_achizitie(obiect)
+        if locatie in result:
+            result[locatie] += pret
+        else:
+            result[locatie] = pret
+    return result

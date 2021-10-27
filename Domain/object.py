@@ -1,4 +1,4 @@
-def create_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str) -> tuple:
+def create_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str) -> dict:
     """
     creeaza un dictionar ce retine un obiect
     :param id: id-ul obiectului - string
@@ -8,55 +8,61 @@ def create_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, loc
     :param locatie: locatia obiectului - string
     :return: un dictionar ce retine un obiect
     """
-    return (id, nume, descriere, pret_achizitie, locatie)
+    return {
+        "id": id,
+        "nume": nume,
+        "descriere": descriere,
+        "pret_achizitie": pret_achizitie,
+        "locatie": locatie
+    }
 
 
-def get_id(obiect: tuple) -> str:
+def get_id(obiect: dict) -> str:
     """
     Determina id-ul unui obiect
-    :param obiect: tuple
+    :param obiect: un dictionar de tip obiect
     :return: id-ul unui obiect
     """
-    return obiect[0]
+    return obiect["id"]
 
 
-def get_nume(obiect: tuple) -> str:
+def get_nume(obiect: dict) -> str:
     """
     Determina numele unui obiect
     :param obiect: un dictionar de tip obiect
     :return: numele unui obiect
     """
-    return obiect[1]
+    return obiect["nume"]
 
 
-def get_descriere(obiect: tuple) -> str:
+def get_descriere(obiect: dict) -> str:
     """
     Determina descrierea unui obiect
     :param obiect: un dictionar de tip obiect
     :return: descrierea unui obiect
     """
-    return obiect[2]
+    return obiect["descriere"]
 
 
-def get_pret_achizitie(obiect: tuple) -> float:
+def get_pret_achizitie(obiect: dict) -> float:
     """
     Determina pretul de achizitie al unui obiect
     :param obiect: un dictionar de tip obiect
     :return: pretul de achizitie al unui obiect
     """
-    return obiect[3]
+    return obiect["pret_achizitie"]
 
 
-def get_locatie(obiect: tuple) -> str:
+def get_locatie(obiect: dict) -> str:
     """
     Determina locatia unui obiect
     :param obiect: un dictionar de tip obiect
     :return: locatia unui obiect
     """
-    return obiect[4]
+    return obiect["locatie"]
 
 
-def to_string(obiect: tuple) -> str:
+def to_string(obiect: dict) -> str:
     """
     Transforma un dictionar intr-un string
     :param obiect: un dictionar de tip obiect

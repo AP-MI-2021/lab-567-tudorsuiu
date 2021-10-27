@@ -13,6 +13,8 @@ def add_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locati
     :param inventar: lista care contine toate obiectele - list
     :return: adauga un obiect in dictionar
     """
+    if get_by_id(id, inventar) is not None:
+        raise ValueError("Id-ul exista deja!")
     obiect = create_obiect(id, nume, descriere, pret_achizitie, locatie)
     return inventar + [obiect]
 
@@ -41,6 +43,8 @@ def modify_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, loc
     :param inventar: lista care contine toate obiectele - list
     :return: obiectul modificat in lista
     """
+    if get_by_id(id, inventar) is None:
+        raise ValueError("Nu exista o prajitura cu id-ul dat!")
     inventar_modificat = []
     for obiect in inventar:
         if get_id(obiect) == id:
@@ -58,4 +62,6 @@ def delete_obiect(id: str, inventar: List[dict]) -> List[dict]:
     :param inventar: lista de obiecte
     :return: lista de obiecte din care se sterge obiectul cu id-ul dat
     """
+    if get_by_id(id, inventar) is None:
+        raise ValueError("Nu exista o prajitura cu id-ul dat!")
     return [obiect for obiect in inventar if get_id(obiect) != id]
