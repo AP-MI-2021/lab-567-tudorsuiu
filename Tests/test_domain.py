@@ -8,4 +8,3 @@ def test_obiect():
     assert get_descriere(obiect) == "Tehnologie"
     assert get_pret_achizitie(obiect) == 1400.0
     assert get_locatie(obiect) == "E1C2"
-
