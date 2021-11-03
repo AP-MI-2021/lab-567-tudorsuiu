@@ -14,7 +14,8 @@ def print_menu():
     print("5. Concatenarea unui string citit la toate descrierile obiectelor cu pretul mai mare decat o valoare citita")
     print("6. Determinarea celui mai mare pret pentru fiecare locatie")
     print("7. Ordonarea obiectelor crescator dupa pretul de achizitie")
-    print("8. Afișarea sumelor prețurilor pentru fiecare locație.")
+    print("8. Afișarea sumelor prețurilor pentru fiecare locație")
+    print("9. Undo")
     print("A. Afisarea tuturor obiectelor")
     print("X. Iesire")
 
@@ -54,6 +55,11 @@ def ui_modify_obiect(inventar: List[dict]) -> List[dict]:
         return inventar
 
 
+def show_all(inventar: List[dict]):
+    for obiect in inventar:
+        print(to_string(obiect))
+
+
 def ui_move_all_obiecte_to_another_locatie(inventar: List[dict]) -> List[dict]:
     try:
         location = input("Dati locatia: ")
@@ -89,31 +95,34 @@ def ui_sum_for_every_location(inventar: List[dict]) -> dict:
     return ui_sum_for_every_location(inventar)
 
 
-def show_all(inventar: List[dict]):
-    for obiect in inventar:
-        print(to_string(obiect))
-
-
 def run_menu(inventar: List[dict]):
+    inventar_undo = inventar
     while True:
         print_menu()
         optiune = input("Dati optiunea: ")
         if optiune == "1":
+            inventar_undo = inventar
             inventar = ui_add_obiect(inventar)
         elif optiune == "2":
+            inventar_undo = inventar
             inventar = ui_delete_obiect(inventar)
         elif optiune == "3":
             inventar = ui_modify_obiect(inventar)
         elif optiune == "4":
+            inventar_undo = inventar
             inventar = ui_move_all_obiecte_to_another_locatie(inventar)
         elif optiune == "5":
+            inventar_undo = inventar
             inventar = ui_concatenation_to_all_obiecte_above_price(inventar)
         elif optiune == "6":
             print(ui_determine_maximum_price_for_every_locatie(inventar))
         elif optiune == "7":
+            inventar_undo = inventar
             inventar = ui_ascending_sorting_by_price(inventar)
         elif optiune == "8":
             print(ui_sum_for_every_location(inventar))
+        elif optiune == "9":
+            inventar = inventar_undo
         elif optiune == "A":
             show_all(inventar)
         elif optiune == "X":
