@@ -3,7 +3,7 @@ from typing import List
 from Domain.object import to_string, get_nume, get_descriere, get_pret_achizitie, get_locatie
 from Logic.CRUD import add_obiect, delete_obiect, modify_obiect, get_by_id
 from Logic.functionalities import move_all_obiecte_to_another_locatie, concatenation_to_all_obiecte_above_price, \
-    ascending_sorting_by_price, determine_maximum_price_for_every_locatie
+    ascending_sorting_by_price, determine_maximum_price_for_every_locatie, sum_for_every_location
 
 
 def print_menu():
@@ -21,67 +21,47 @@ def print_menu():
     print("X. Iesire")
 
 
-def ui_add_obiect(inventar: List[dict], undo_operations: List, redo_operations: List) -> List[dict]:
+def ui_add_obiect(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
         id = input("Dati id-ul: ")
         nume = input("Dati numele: ")
         descriere = input("Dati descrierea: ")
         pret_achizitie = float(input("Dati pretul de achizitie: "))
         locatie = input("Dati locatia: ")
+
         result = add_obiect(id, nume, descriere, pret_achizitie, locatie, inventar)
-        undo_operations.append([
-            lambda: delete_obiect(id, result),
-            lambda: add_obiect(id, nume, descriere, pret_achizitie, locatie, inventar)
-        ])
-        redo_operations.clear()
+        undo_list.append(inventar)
+        redo_list.clear()
         return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return inventar
 
 
-def ui_delete_obiect(inventar: List[dict], undo_operations: List, redo_operations: List) -> List[dict]:
+def ui_delete_obiect(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
         id = input("Dati id-ul obiectului de sters: ")
-        obiect_deleted = get_by_id(id, inventar)
+
         result = delete_obiect(id, inventar)
-        undo_operations.append([
-            lambda: add_obiect(
-                id,
-                get_nume(obiect_deleted),
-                get_descriere(obiect_deleted),
-                get_pret_achizitie(obiect_deleted),
-                get_locatie(obiect_deleted),
-                result),
-            lambda: delete_obiect(id, inventar)
-        ])
-        redo_operations.clear()
+        undo_list.append(inventar)
+        redo_list.clear()
         return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return inventar
 
 
-def ui_modify_obiect(inventar: List[dict], undo_operations: List, redo_operations: List) -> List[dict]:
+def ui_modify_obiect(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
         id = input("Dati id-ul obiectului de modificat: ")
         nume = input("Dati noul nume: ")
         descriere = input("Dati noua descriere: ")
         pret_achizitie = float(input("Dati noul pret de achizitie: "))
         locatie = input("Dati noua locatie: ")
-        obiect_modified = get_by_id(id, inventar)
+
         result = modify_obiect(id, nume, descriere, pret_achizitie, locatie, inventar)
-        undo_operations.append([
-            lambda: modify_obiect(
-                id,
-                get_nume(obiect_modified),
-                get_descriere(obiect_modified),
-                get_pret_achizitie(obiect_modified),
-                get_locatie(obiect_modified),
-                result),
-            lambda: modify_obiect(id, nume, descriere, pret_achizitie, locatie, inventar)
-        ])
-        redo_operations.clear()
+        undo_list.append(inventar)
+        redo_list.clear()
         return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
@@ -93,75 +73,84 @@ def show_all(inventar: List[dict]):
         print(to_string(obiect))
 
 
-def ui_move_all_obiecte_to_another_locatie(inventar: List[dict]) -> List[dict]:
+def ui_move_all_obiecte_to_another_locatie(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
         location = input("Dati locatia: ")
-        return move_all_obiecte_to_another_locatie(inventar, location)
+
+        result = move_all_obiecte_to_another_locatie(inventar, location)
+        undo_list.append(inventar)
+        redo_list.clear()
+        return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return inventar
 
 
-def ui_concatenation_to_all_obiecte_above_price(inventar: List[dict]) -> List[dict]:
+def ui_concatenation_to_all_obiecte_above_price(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
         concat_description = input("Dati descrierea care se va adauga: ")
         price = float(input("Dati pretul de comparare: "))
-        return concatenation_to_all_obiecte_above_price(inventar, concat_description, price)
+
+        result = concatenation_to_all_obiecte_above_price(inventar, concat_description, price)
+        undo_list.append(inventar)
+        redo_list.clear()
+        return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return inventar
 
 
-def ui_determine_maximum_price_for_every_locatie(inventar: List[dict]) -> dict:
+def ui_determine_maximum_price_for_every_locatie(inventar: List[dict], undo_list: List, redo_list: List) -> dict:
     return determine_maximum_price_for_every_locatie(inventar)
 
 
-def ui_ascending_sorting_by_price(inventar: List[dict]) -> List[dict]:
+def ui_ascending_sorting_by_price(inventar: List[dict], undo_list: List, redo_list: List) -> List[dict]:
     try:
-        return ascending_sorting_by_price(inventar)
+        result = ascending_sorting_by_price(inventar)
+        undo_list.append(inventar)
+        redo_list.clear()
+        return result
     except ValueError as ve:
         print("Eroare: {}".format(ve))
         return inventar
 
 
-def ui_sum_for_every_location(inventar: List[dict]) -> dict:
-    return ui_sum_for_every_location(inventar)
+def ui_sum_for_every_location(inventar: List[dict], undo_list: List, redo_list: List) -> dict:
+    return sum_for_every_location(inventar)
 
 
 def run_menu(inventar: List[dict]):
-    undo_operations = []
-    redo_operations = []
+    undo_list = []
+    redo_list = []
     while True:
         print_menu()
         optiune = input("Dati optiunea: ")
         if optiune == "1":
-            inventar = ui_add_obiect(inventar, undo_operations, redo_operations)
+            inventar = ui_add_obiect(inventar, undo_list, redo_list)
         elif optiune == "2":
-            inventar = ui_delete_obiect(inventar, undo_operations, redo_operations)
+            inventar = ui_delete_obiect(inventar, undo_list, redo_list)
         elif optiune == "3":
-            inventar = ui_modify_obiect(inventar, undo_operations, redo_operations)
+            inventar = ui_modify_obiect(inventar, undo_list, redo_list)
         elif optiune == "4":
-            inventar = ui_move_all_obiecte_to_another_locatie(inventar)
+            inventar = ui_move_all_obiecte_to_another_locatie(inventar, undo_list, redo_list)
         elif optiune == "5":
-            inventar = ui_concatenation_to_all_obiecte_above_price(inventar)
+            inventar = ui_concatenation_to_all_obiecte_above_price(inventar, undo_list, redo_list)
         elif optiune == "6":
-            print(ui_determine_maximum_price_for_every_locatie(inventar))
+            print(ui_determine_maximum_price_for_every_locatie(inventar, undo_list, redo_list))
         elif optiune == "7":
-            inventar = ui_ascending_sorting_by_price(inventar)
+            inventar = ui_ascending_sorting_by_price(inventar, undo_list, redo_list)
         elif optiune == "8":
-            print(ui_sum_for_every_location(inventar))
+            print(ui_sum_for_every_location(inventar, undo_list, redo_list))
         elif optiune == "U":
-            if len(undo_operations) > 0:
-                operations = undo_operations.pop()
-                redo_operations.append(operations)
-                inventar = operations[0]()
+            if len(undo_list) > 0:
+                redo_list.append(inventar)
+                inventar = undo_list.pop()
             else:
                 print("Nu se poate face undo!")
         elif optiune == "R":
-            if len(redo_operations) > 0:
-                operations = redo_operations.pop()
-                undo_operations.append(operations)
-                inventar = operations[1]()
+            if len(redo_list) > 0:
+                undo_list.append(inventar)
+                inventar = redo_list.pop()
             else:
                 print("Nu se poate face redo!")
         elif optiune == "A":

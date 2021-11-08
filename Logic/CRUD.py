@@ -63,5 +63,5 @@ def delete_obiect(id: str, inventar: List[dict]) -> List[dict]:
     :return: lista de obiecte din care se sterge obiectul cu id-ul dat
     """
     if get_by_id(id, inventar) is None:
-        raise ValueError("Nu exista o prajitura cu id-ul dat!")
+        raise ValueError("Nu exista un obiect cu id-ul dat!")
     return [obiect for obiect in inventar if get_id(obiect) != id]
