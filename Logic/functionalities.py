@@ -86,3 +86,33 @@ def sum_for_every_location(inventar: List[dict]) -> dict:
         else:
             result[locatie] = pret
     return result
+
+
+def undo(inventar: List[dict], undo_list: List, redo_list: List) -> List:
+    """
+    Determina ultima forma a inventarului inainte de a se efectua ultima operatie
+    :param inventar: lista de obiecte
+    :param undo_list: lista care memoreaza inventarul dupa fiecare operatie
+    :param redo_list: lista care memoreaza inventarul dupa fiecare undo
+    :return: inventarul inainte de a se efectua ultima operatie
+    """
+    if len(undo_list) > 0:
+        redo_list.append(inventar)
+        return undo_list.pop()
+    else:
+        return inventar
+
+
+def redo(inventar: List[dict], undo_list: List, redo_list: List) -> List:
+    """
+    Determina ultima forma a inventarului inainte de a se efectua ultimul undo
+    :param inventar: lista de obiecte
+    :param undo_list: lista care memoreaza inventarul dupa fiecare operatie
+    :param redo_list: lista care memoreaza inventarul dupa fiecare undo
+    :return: inventarul inainte de a se efectua ultimul undo
+    """
+    if len(redo_list) > 0:
+        undo_list.append(inventar)
+        return redo_list.pop()
+    else:
+        return inventar

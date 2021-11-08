@@ -1,9 +1,9 @@
 from typing import List
 
-from Domain.object import to_string, get_nume, get_descriere, get_pret_achizitie, get_locatie
-from Logic.CRUD import add_obiect, delete_obiect, modify_obiect, get_by_id
+from Domain.object import to_string
+from Logic.CRUD import add_obiect, delete_obiect, modify_obiect
 from Logic.functionalities import move_all_obiecte_to_another_locatie, concatenation_to_all_obiecte_above_price, \
-    ascending_sorting_by_price, determine_maximum_price_for_every_locatie, sum_for_every_location
+    ascending_sorting_by_price, determine_maximum_price_for_every_locatie, sum_for_every_location, undo, redo
 
 
 def print_menu():
@@ -100,7 +100,7 @@ def ui_concatenation_to_all_obiecte_above_price(inventar: List[dict], undo_list:
         return inventar
 
 
-def ui_determine_maximum_price_for_every_locatie(inventar: List[dict], undo_list: List, redo_list: List) -> dict:
+def ui_determine_maximum_price_for_every_locatie(inventar: List[dict]) -> dict:
     return determine_maximum_price_for_every_locatie(inventar)
 
 
@@ -115,7 +115,7 @@ def ui_ascending_sorting_by_price(inventar: List[dict], undo_list: List, redo_li
         return inventar
 
 
-def ui_sum_for_every_location(inventar: List[dict], undo_list: List, redo_list: List) -> dict:
+def ui_sum_for_every_location(inventar: List[dict]) -> dict:
     return sum_for_every_location(inventar)
 
 
@@ -136,21 +136,19 @@ def run_menu(inventar: List[dict]):
         elif optiune == "5":
             inventar = ui_concatenation_to_all_obiecte_above_price(inventar, undo_list, redo_list)
         elif optiune == "6":
-            print(ui_determine_maximum_price_for_every_locatie(inventar, undo_list, redo_list))
+            print(ui_determine_maximum_price_for_every_locatie(inventar))
         elif optiune == "7":
             inventar = ui_ascending_sorting_by_price(inventar, undo_list, redo_list)
         elif optiune == "8":
-            print(ui_sum_for_every_location(inventar, undo_list, redo_list))
+            print(ui_sum_for_every_location(inventar))
         elif optiune == "U":
             if len(undo_list) > 0:
-                redo_list.append(inventar)
-                inventar = undo_list.pop()
+                inventar = undo(inventar, undo_list, redo_list)
             else:
                 print("Nu se poate face undo!")
         elif optiune == "R":
             if len(redo_list) > 0:
-                undo_list.append(inventar)
-                inventar = redo_list.pop()
+                inventar = redo(inventar, undo_list, redo_list)
             else:
                 print("Nu se poate face redo!")
         elif optiune == "A":
