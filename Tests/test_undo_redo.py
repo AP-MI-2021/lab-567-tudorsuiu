@@ -60,8 +60,8 @@ def test_undo_redo_ascending_sorting_by_price():
                         {"id": "3", "nume": "o3", "descriere": "o3", "pret_achizitie": 1, "locatie": "o3"}]
     inventar = redo(inventar, undo_list, redo_list)
     assert inventar == [{"id": "3", "nume": "o3", "descriere": "o3", "pret_achizitie": 1, "locatie": "o3"},
-                       {"id": "2", "nume": "o2", "descriere": "o2", "pret_achizitie": 2, "locatie": "o2"},
-                       {"id": "1", "nume": "o1", "descriere": "o1", "pret_achizitie": 3, "locatie": "o1"}]
+                        {"id": "2", "nume": "o2", "descriere": "o2", "pret_achizitie": 2, "locatie": "o2"},
+                        {"id": "1", "nume": "o1", "descriere": "o1", "pret_achizitie": 3, "locatie": "o1"}]
 
 
 def test_undo_redo():

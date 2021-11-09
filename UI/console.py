@@ -141,19 +141,22 @@ def run_menu(inventar: List[dict]):
             inventar = ui_ascending_sorting_by_price(inventar, undo_list, redo_list)
         elif optiune == "8":
             print(ui_sum_for_every_location(inventar))
-        elif optiune == "U":
+        elif optiune == "U" or optiune == "u":
             if len(undo_list) > 0:
                 inventar = undo(inventar, undo_list, redo_list)
             else:
                 print("Nu se poate face undo!")
-        elif optiune == "R":
+        elif optiune == "R" or optiune == "r":
             if len(redo_list) > 0:
                 inventar = redo(inventar, undo_list, redo_list)
             else:
                 print("Nu se poate face redo!")
-        elif optiune == "A":
-            show_all(inventar)
-        elif optiune == "X":
+        elif optiune == "A" or optiune == "a":
+            if len(inventar) == 0:
+                print("Nu exista niciun obiect in inventar!")
+            else:
+                show_all(inventar)
+        elif optiune == "X" or optiune == "x":
             break
         else:
             print("Optiune gresita! Reincercati!")

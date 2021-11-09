@@ -2,7 +2,8 @@ from typing import List
 from Domain.object import create_obiect, get_id
 
 
-def add_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str, inventar: List[dict]) -> List[dict]:
+def add_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str,
+               inventar: List[dict]) -> List[dict]:
     """
     Adauga un obiect in dictionar
     :param id: id-ul obiectului - string
@@ -32,7 +33,8 @@ def get_by_id(id: str, inventar: List[dict]) -> dict or None:
     return None
 
 
-def modify_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str, inventar: List[dict]) -> List[dict]:
+def modify_obiect(id: str, nume: str, descriere: str, pret_achizitie: float, locatie: str,
+                  inventar: List[dict]) -> List[dict]:
     """
     Modifica un obiect din lista
     :param id: id-ul obiectului care se modifica - string
